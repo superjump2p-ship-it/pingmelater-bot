@@ -260,6 +260,9 @@ async def main() -> None:
         и показываем inline-кнопки для выбора времени.
         """
         chat_id = message.chat.id
+        # Игнорируем командные сообщения, чтобы обработчики Command(...) сработали
+        if message.text and message.text.strip().startswith("/"):
+            return
         # Если сейчас ожидаем от пользователя ввод времени для "своё время",
         # не обрабатываем это сообщение как новый текст напоминания.
         if chat_id in pending_custom_time:
